@@ -18,6 +18,5 @@ func CalcFx(fx string, m map[string]interface{}) (float64, error) {
 	for str, v := range m {
 		express = strings.Replace(express, str, fmt.Sprint(v), -1)
 	}
-	fmt.Println(express)
 	return Calc(express)
 }

@@ -8,8 +8,7 @@ import (
 // Calculate
 func Calc(express string) (float64, error) {
 	rpn := parseInfix(express)
-	res := calcNotation(rpn)
-	return res, nil
+	return calcNotation(rpn)
 }
 
 // Calc Fx

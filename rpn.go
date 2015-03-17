@@ -3,6 +3,7 @@ package gocalc
 // http://rosettacode.org/wiki/Parsing/RPN_calculator_algorithm#Go
 
 import (
+	"errors"
 	"math"
 	"strconv"
 	"strings"
@@ -24,6 +25,10 @@ func calcNotation(rpn string) (float64, error) {
 			stack[len(stack)-2] *= stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 		case "/":
+			if stack[len(stack)-1] == 0 {
+				err = errors.New("division by zero")
+				break
+			}
 			stack[len(stack)-2] /= stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 		case "^":
@@ -36,7 +41,6 @@ func calcNotation(rpn string) (float64, error) {
 				return float64(0), err
 			}
 			stack = append(stack, f)
-
 		}
 	}
 	return stack[0], err

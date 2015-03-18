@@ -7,7 +7,16 @@ import (
 
 // Calculate
 func Calc(express string) (float64, error) {
-	rpn := parseInfix(express)
+	var rpn string
+	if Cache {
+		var ok bool
+		if rpn, ok = rpnCaches[express]; !ok {
+			rpn = parseInfix(express)
+			rpnCaches[express] = rpn
+		}
+	} else {
+		rpn = parseInfix(express)
+	}
 	return calcNotation(rpn)
 }
 
